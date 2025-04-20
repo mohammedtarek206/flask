@@ -1,30 +1,31 @@
+from flask import Flask, request, jsonify
 import pandas as pd
 
-# Function to add student data to an Excel file
+app = Flask(__name__)
+
 def add_student_to_excel(student_data, file_name='students.xlsx'):
     try:
-        # Try to read the existing Excel file
         df = pd.read_excel(file_name)
     except FileNotFoundError:
-        # If the file does not exist, create a new DataFrame
         df = pd.DataFrame(columns=['كود الطالب', 'رقم الطالب', 'اسم الطالب رباعي', 'تسجيل الحضور', 'الاختبارات'])
-
-    # Append the new student data to the DataFrame
+    
     df = pd.concat([df, pd.DataFrame([student_data])], ignore_index=True)
-
-    # Save the DataFrame to the Excel file
     df.to_excel(file_name, index=False)
 
-# Example student data
-student_data = {
-    'كود الطالب': '001',
-    'رقم الطالب': '1234567890',
-    'اسم الطالب رباعي': 'محمد أحمد علي حسن',
-    'تسجيل الحضور': 'حاضر',
-    'الاختبارات': '85%'
-}
+@app.route('/add_student', methods=['POST'])
+def add_student():
+    student_data = request.json
+    add_student_to_excel(student_data)
+    return jsonify({"message": "تم تخزين البيانات في ملف اكسيل بنجاح."})
 
-# Add the student data to the Excel file
-add_student_to_excel(student_data)
+@app.route('/get_students', methods=['GET'])
+def get_students():
+    try:
+        df = pd.read_excel('students.xlsx')
+        students = df.to_dict(orient='records')
+        return jsonify(students)
+    except FileNotFoundError:
+        return jsonify([])
 
-print("تم تخزين البيانات في ملف اكسيل بنجاح.")
+if __name__ == '__main__':
+    app.run(debug=True)
