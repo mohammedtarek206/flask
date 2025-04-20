@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة الدروس الخصوصيه </title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>نظام إدارة الدروس الخصوصيه</h1>
+    <form id="studentForm">
+        <label for="studentCode">كود الطالب:</label>
+        <input type="text" id="studentCode" name="studentCode" required>
+
+        <label for="studentNumber">رقم الطالب:</label>
+        <input type="text" id="studentNumber" name="studentNumber" required>
+
+        <label for="studentName">اسم الطالب رباعي:</label>
+        <input type="text" id="studentName" name="studentName" required>
+
+        <label for="attendance">تسجيل الحضور:</label>
+        <select id="attendance" name="attendance">
+            <option value="حاضر">حاضر</option>
+            <option value="غائب">غائب</option>
+        </select>
+
+        <label for="tests">الاختبارات:</label>
+        <input type="text" id="tests" name="tests" required>
+
+        <button type="submit">إضافة الطالب</button>
+    </form>
+
+    <table id="studentsTable">
+        <thead>
+            <tr>
+                <th>كود الطالب</th>
+                <th>رقم الطالب</th>
+                <th>اسم الطالب رباعي</th>
+                <th>تسجيل الحضور</th>
+                <th>شهر 8</th>
+                <th>ال</th>
+                <th>الاختبارات</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <!-- سيتم إضافة الصفوف هنا -->
+        </tbody>
+    </table>
+    <!-- -->
+
+    <script src="script.js"></script>
+</body>
+</html>
